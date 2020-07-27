@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
+
+import HomePage from './pages/Home/Home.page';
+import PlacesPage from './pages/Places/Places.page';
+import NotFoundPage from './pages/NotFound/NotFound.page';
+
+import MainHeader from './components/MainHeader';
+import { PlacesContext } from './contexts/places.context';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [ value, setValue ] = useState([]);
+	useEffect(() => {
+		setValue(JSON.parse(localStorage.getItem('localData')));
+	}, []);
+	return (
+		<React.Fragment>
+			<PlacesContext.Provider value={{ value, setValue }}>
+				<MainHeader />
+				<Switch>
+					<Route path="/places" component={PlacesPage} />
+					<Route path="/not-found" component={NotFoundPage} />
+					<Route exact path="/" component={HomePage} />
+					<Redirect to="/not-found" />
+				</Switch>
+			</PlacesContext.Provider>
+		</React.Fragment>
+	);
 }
 
 export default App;
