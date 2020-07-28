@@ -10,7 +10,7 @@ const useLocation = () => {
 	const getGeolocation = () => {
 		const options = {
 			enableHighAccuracy: true,
-			timeout: 1000,
+			timeout: 5000,
 			maximumAge: 0
 		};
 		const success = (position) => {
