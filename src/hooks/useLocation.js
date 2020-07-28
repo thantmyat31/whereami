@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
-import ENV from './../env/env';
 
 const useLocation = () => {
 	const [ location, setLocation ] = useState();
@@ -9,13 +7,22 @@ const useLocation = () => {
 		getGeolocation();
 	}, []);
 
-	const getGeolocation = async () => {
-		const URL = 'https://www.googleapis.com/geolocation/v1/geolocate';
-		try {
-			const result = await axios.post(`${URL}?key=${ENV.GOOGLE_API_KEY}`);
-			setLocation(result.data.location);
-		} catch (error) {
+	const getGeolocation = () => {
+		const options = {
+			enableHighAccuracy: true,
+			timeout: 1000,
+			maximumAge: 0
+		};
+		const success = (position) => {
+			if (position) setLocation({ lat: position.coords.latitude, lng: position.coords.longitude });
+		};
+		const error = (error) => {
 			console.log(error);
+		};
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(success, error, options);
+		} else {
+			alert('Your brower/OS is not support to use your location.');
 		}
 	};
 

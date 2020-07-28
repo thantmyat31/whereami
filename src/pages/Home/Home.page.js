@@ -1,17 +1,18 @@
 import React, { useContext } from 'react';
 
 import Button from '../../components/Button';
-import useLocation from './../../hooks/useLocation';
 import MapPreview from '../../components/MapPreview';
 
-import NoLocation from './../../assets/no-location.png';
-import './Home.css';
+import useLocation from './../../hooks/useLocation';
 import useGeocoding from './../../hooks/useGeocoding';
 import useMapPreviewUrl from '../../hooks/useMapPreviewUrl';
 import { PlacesContext } from '../../contexts/places.context';
 
-const HomePage = ({ history }) => {
-	const { value, setValue } = useContext(PlacesContext);
+import NoLocation from './../../assets/no-location.png';
+import './Home.css';
+
+const HomePage = () => {
+	const { setValue } = useContext(PlacesContext);
 
 	const location = useLocation();
 	const address = useGeocoding();
@@ -26,7 +27,7 @@ const HomePage = ({ history }) => {
 		const localData = JSON.parse(localStorage.getItem('localData'));
 		const insertData = localData ? [ currentData, ...localData ] : [ currentData ];
 		localStorage.setItem('localData', JSON.stringify(insertData));
-		// history.push('/places');
+
 		setValue(insertData);
 	};
 
@@ -40,7 +41,7 @@ const HomePage = ({ history }) => {
 				)}
 			</div>
 
-			<Button onClick={handleOnSavePlace}>Save My Place</Button>
+			{location ? <Button onClick={handleOnSavePlace}>Save My Place</Button> : null}
 		</div>
 	);
 };

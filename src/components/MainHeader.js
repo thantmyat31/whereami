@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
-import Logo from '../assets/logo.png';
 import { PlacesContext } from '../contexts/places.context';
+import Logo from '../assets/logo.png';
 
 const MainHeader = () => {
-	const { value, setValue } = useContext(PlacesContext);
+	const { value } = useContext(PlacesContext);
 
 	return (
 		<header style={styles.header}>
@@ -15,7 +15,7 @@ const MainHeader = () => {
 					Home
 				</Link>
 				<Link style={styles.link} to="/places">
-					Places {value ? <span style={styles.counter}>{value.length}</span> : null}
+					Places {value && value.length > 0 ? <span style={styles.counter}>{value.length}</span> : null}
 				</Link>
 			</div>
 		</header>

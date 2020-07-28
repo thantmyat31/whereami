@@ -1,14 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import CardItem from './../../components/CardItem';
 
+import { PlacesContext } from '../../contexts/places.context';
 import './Places.css';
 
 const PlacesPage = () => {
 	const [ localData, setLocalData ] = useState();
-	useEffect(() => {
-		setLocalData(JSON.parse(localStorage.getItem('localData')));
-	}, []);
+	const { value } = useContext(PlacesContext);
+
+	useEffect(
+		() => {
+			if (value) setLocalData(value);
+		},
+		[ value ]
+	);
 	return (
 		<div className="placespage">{localData && localData.map((data) => <CardItem key={data.id} data={data} />)}</div>
 	);

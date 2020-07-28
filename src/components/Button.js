@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 
-const Button = ({ children, onClick }) => {
+const Button = ({ children, onClick, style }) => {
 	const [ hoverStyle, setHoverStyle ] = useState();
 	const handleOnMouseOver = () => {
-		setHoverStyle({ backgroundColor: '#777' });
+		setHoverStyle({ opacity: 0.6 });
 	};
 	const handleOnMouseOut = () => {
-		setHoverStyle({ backgroundColor: '#535353' });
+		setHoverStyle({ opacity: 1 });
 	};
 	return (
 		<button
-			style={hoverStyle ? { ...styles.button, ...hoverStyle } : styles.button}
+			style={hoverStyle ? { ...styles.button, ...hoverStyle, ...style } : { ...styles.button, ...style }}
 			onMouseOver={handleOnMouseOver}
 			onMouseOut={handleOnMouseOut}
 			onClick={onClick}

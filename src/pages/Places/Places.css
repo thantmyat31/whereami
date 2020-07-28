@@ -1,15 +1,15 @@
 .placespage {
 	max-width: 644px;
 	margin: auto;
-	display: flex;
+	/* display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
 	justify-content: flex-start;
-	align-items: center;
+	align-items: flex-start; */
 }
 
-@media screen and (max-width: 660px) {
+/* @media screen and (max-width: 660px) {
 	.placespage {
 		justify-content: center;
 	}
-}
+} */
